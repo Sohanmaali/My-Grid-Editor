@@ -1,7 +1,5 @@
-/**
- * Frontwise grid editor plugin.
- */
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
 //  line number 747
 (function ($) {
   $.fn.gridEditor = function (options) {
@@ -46,15 +44,27 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
             [4, 8],
             [8, 4],
           ],
-          row_classes: [{ label: "Example class", cssClass: "example-class" }],
-          col_classes: [{ label: "Example class", cssClass: "example-class" }],
-          col_tools: [] /* Example:
-                                        [ {
-                                            title: 'Set background image',
-                                            iconClass: 'glyphicon-picture',
-                                            on: { click: function() {} }
-                                        } ]
-                                    */,
+          row_classes: [
+            { label: "Container", cssClass: "container" },
+            { label: "Row Highlight", cssClass: "row-highlight" },
+            { label: "No Gutters", cssClass: "no-gutters" },
+          ],
+
+          col_classes: [
+            { label: "Text Center", cssClass: "text-center" },
+            { label: "Text Right", cssClass: "text-right" },
+            { label: "Primary BG", cssClass: "bg-primary" },
+            { label: "Secondary BG", cssClass: "bg-secondary" },
+          ],
+
+          col_tools: [
+            {
+              title: "Set background image",
+              iconClass: "glyphicon-picture",
+              on: { click: function () {} },
+            },
+          ],
+
           row_tools: [],
           custom_filter: "",
           content_types: ["tinymce"],
@@ -744,7 +754,6 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
               },
             }
           );
-          // var instance = CKEDITOR.inline(contentArea.get(0), configuration);
           ClassicEditor.create(contentArea.get(0), configuration)
             .then((editor) => {
               console.log("CKEditor 5 initialized:", editor);
@@ -775,142 +784,6 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
       });
     },
 
-    initialContent: "<p>Lorem initius... </p>",
-  };
-})(jQuery);
-(function ($) {
-  $.fn.gridEditor.RTEs.summernote = {
-    init: function (settings, contentAreas) {
-      if (!jQuery().summernote) {
-        console.error(
-          "Summernote not available! Make sure you loaded the Summernote js file."
-        );
-      }
-
-      var self = this;
-      contentAreas.each(function () {
-        var contentArea = $(this);
-        if (!contentArea.hasClass("active")) {
-          if (contentArea.html() == self.initialContent) {
-            contentArea.html("");
-          }
-          contentArea.addClass("active");
-
-          var configuration = $.extend(
-            true, // deep copy
-            {},
-            settings.summernote && settings.summernote.config
-              ? settings.summernote.config
-              : {},
-            {
-              tabsize: 2,
-              airMode: true,
-              // Focus editor on creation
-              callbacks: {
-                onInit: function () {
-                  // Call original oninit function, if one was passed in the config
-                  var callback;
-                  try {
-                    callback = settings.summernote.config.callbacks.onInit;
-                  } catch (err) {
-                    // No callback passed
-                  }
-                  if (callback) {
-                    callback.call(this);
-                  }
-
-                  contentArea.summernote("focus");
-                },
-              },
-            }
-          );
-          contentArea.summernote(configuration);
-        }
-      });
-    },
-
-    deinit: function (settings, contentAreas) {
-      contentAreas.filter(".active").each(function () {
-        var contentArea = $(this);
-        contentArea.summernote("destroy");
-        contentArea
-          .removeClass("active")
-          .removeAttr("id")
-          .removeAttr("style")
-          .removeAttr("spellcheck");
-      });
-    },
-
-    initialContent: "<p>Lorem ipsum dolores</p>",
-  };
-})(jQuery);
-
-(function ($) {
-  $.fn.gridEditor.RTEs.tinymce = {
-    init: function (settings, contentAreas) {
-      if (!window.tinymce) {
-        console.error(
-          "tinyMCE not available! Make sure you loaded the tinyMCE js file."
-        );
-      }
-      if (!contentAreas.tinymce) {
-        console.error(
-          "tinyMCE jquery integration not available! Make sure you loaded the jquery integration plugin."
-        );
-      }
-      var self = this;
-      contentAreas.each(function () {
-        var contentArea = $(this);
-        if (!contentArea.hasClass("active")) {
-          if (contentArea.html() == self.initialContent) {
-            contentArea.html("");
-          }
-          contentArea.addClass("active");
-          var configuration = $.extend(
-            {},
-            settings.tinymce && settings.tinymce.config
-              ? settings.tinymce.config
-              : {},
-            {
-              inline: true,
-              oninit: function (editor) {
-                // Bring focus to text field
-                $("#" + editor.settings.id).focus();
-
-                // Call original oninit function, if one was passed in the config
-                var callback;
-                try {
-                  callback = settings.tinymce.config.oninit;
-                } catch (err) {
-                  // No callback passed
-                }
-
-                if (callback) {
-                  callback.call(this);
-                }
-              },
-            }
-          );
-          var tiny = contentArea.tinymce(configuration);
-        }
-      });
-    },
-
-    deinit: function (settings, contentAreas) {
-      contentAreas.filter(".active").each(function () {
-        var contentArea = $(this);
-        var tiny = contentArea.tinymce();
-        if (tiny) {
-          tiny.remove();
-        }
-        contentArea
-          .removeClass("active")
-          .removeAttr("id")
-          .removeAttr("style")
-          .removeAttr("spellcheck");
-      });
-    },
-
-    initialContent: "<p>Lorem ipsum dolores</p>",
+    initialContent: "<div>Write Here... </div>",
   };
 })(jQuery);
