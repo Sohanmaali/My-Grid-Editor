@@ -2,7 +2,7 @@
 
 # Grid Editor with SOHAN MAALI
 
-![Grid Editor Screenshot](./images/Screenshot 2025-03-13 000334.png)
+![Grid Editor Screenshot](public/images/Screenshot 2025-03-13 000334.png)
 
 ## 📌 Overview
 Grid Editor is a web-based tool that allows users to create, edit, and manage content using a grid-based structure. It includes features like dynamic content rendering, table insertion, and real-time component updates.
@@ -57,7 +57,7 @@ Grid Editor is a web-based tool that allows users to create, edit, and manage co
 - Click **'Get Content'** to retrieve and render structured content.
 
 ## 📷 Screenshot
-![Grid Editor Preview](./images/Screenshot 2025-03-13 000334.png)
+![Grid Editor Preview](public/images/Screenshot 2025-03-13 000334.png)
 
 ## 📌 Future Improvements
 - **Drag-and-Drop Support**
