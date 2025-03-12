@@ -4,7 +4,7 @@
   margin-bottom: 10px;
 }
 .ge-mainControls .ge-wrapper {
-  padding-top: 5px;
+  /* padding-top: 5px; */
 }
 .ge-mainControls .ge-wrapper.ge-top .container {
   margin: 0;
@@ -24,7 +24,7 @@
   align-items: center;
 }
 .ge-mainControls .ge-addRowGroup .btn.btn-primary:hover {
-  background: #E3E3E3;
+  background: #e3e3e3;
 }
 .ge-mainControls .ge-addRowGroup .ge-row-icon {
   width: 48px;
@@ -53,15 +53,11 @@
   width: 100%;
   display: none;
 }
-/* Not editing */
+
 .ge-canvas .ge-tools-drawer {
   display: none;
 }
-/* While editing */
-.ge-canvas.ge-editing {
-  /* Content area */
-  /* Sorting */
-}
+
 .ge-canvas.ge-editing .ge-tools-drawer {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -97,7 +93,7 @@
   cursor: pointer;
 }
 .ge-canvas.ge-editing .ge-tools-drawer .ge-details input.ge-id {
-  border: 1px solid #7F7F7F;
+  border: 1px solid #7f7f7f;
   border-radius: 4px;
   font-size: 11px;
   padding: 2px 5px;
@@ -123,7 +119,7 @@
 }
 .ge-canvas.ge-editing .column {
   background-color: rgba(47, 164, 231, 0.15);
-  border: 1px solid #2FA4E7;
+  border: 1px solid #2fa4e7;
   padding: 0 5px 5px;
 }
 .ge-canvas.ge-editing .column > .ge-tools-drawer {
@@ -144,7 +140,6 @@
   min-height: 50px;
   max-height: 100px;
 }
-/* Layout modes */
 .ge-canvas.ge-layout-phone {
   max-width: 400px;
   margin-left: auto;

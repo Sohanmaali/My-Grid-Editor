@@ -744,14 +744,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
               },
             }
           );
-          // var instance = CKEDITOR.inline(contentArea.get(0), configuration);
-          ClassicEditor.create(contentArea.get(0), configuration)
-            .then((editor) => {
-              console.log("CKEditor 5 initialized:", editor);
-            })
-            .catch((error) => {
-              console.error("CKEditor 5 Error:", error);
-            });
+          var instance = CKEDITOR.inline(contentArea.get(0), configuration);
         }
       });
     },

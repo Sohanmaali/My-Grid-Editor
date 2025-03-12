@@ -46,22 +46,30 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
           ],
           row_classes: [
             { label: "Container", cssClass: "container" },
-            { label: "Row Highlight", cssClass: "row-highlight" },
-            { label: "No Gutters", cssClass: "no-gutters" },
+            { label: "Fluid Container", cssClass: "container-fluid" },
+            { label: "Row", cssClass: "row" },
+            { label: "Row Highlight", cssClass: "row row-highlight" },
+            { label: "No Gutters", cssClass: "row g-0" }, // Bootstrap 5 no gutters
           ],
-
           col_classes: [
+            { label: "Text Start", cssClass: "text-start" },
             { label: "Text Center", cssClass: "text-center" },
-            { label: "Text Right", cssClass: "text-right" },
-            { label: "Primary BG", cssClass: "bg-primary" },
-            { label: "Secondary BG", cssClass: "bg-secondary" },
+            { label: "Text End", cssClass: "text-end" },
+            { label: "Primary BG", cssClass: "bg-primary text-white" },
+            { label: "Secondary BG", cssClass: "bg-secondary text-white" },
+            { label: "Light BG", cssClass: "bg-light" },
+            { label: "Dark BG", cssClass: "bg-dark text-white" },
           ],
 
           col_tools: [
             {
               title: "Set background image",
-              iconClass: "glyphicon-picture",
-              on: { click: function () {} },
+              iconClass: "bi bi-image", // Bootstrap 5 icons
+              on: {
+                click: function () {
+                  $(this).css("background-color", "#ffcc00"); // Apply only to the clicked column
+                },
+              },
             },
           ],
 
@@ -175,6 +183,56 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
         var btnGroup = $('<div class="btn-group pull-right"/>').appendTo(
           wrapper
         );
+        //  =================================TABLE===============================
+        // Create "Add Table" button inside the Grid Editor toolbar
+        var addTableButton = $(
+          '<button title="Add Table" type="button" class="btn btn-sm btn-warning">Add Table</button>'
+        )
+          .on("click", function () {
+            // Ask user for the number of columns
+            var numCols = prompt(
+              "Enter the number of columns for the table:",
+              "3"
+            );
+            var numRow = prompt("Enter the number of rows for the table:", "3");
+
+            // Validate input (must be a number and at least 1 column)
+            numCols = parseInt(numCols);
+            if (isNaN(numCols) || numCols < 1) {
+              alert("Please enter a valid number (1 or more).");
+              return;
+            }
+            numRow = parseInt(numRow);
+            if (isNaN(numRow) || numRow < 1) {
+              alert("Please enter a valid number (1 or more).");
+              return;
+            }
+
+            // Create table header
+            var tableHtml =
+              '<table border="1" style="width: 100%; border-collapse: collapse;">';
+            tableHtml += "<thead><tr>";
+            for (var i = 0; i < numCols; i++) {
+              tableHtml += `<th>Header ${i + 1}</th>`;
+            }
+            tableHtml += "</tr></thead><tbody>";
+
+            // Create table rows and columns
+            for (var j = 0; j < numRow; j++) {  
+              tableHtml += "<tr>";
+              for (var i = 0; i < numCols; i++) {
+                tableHtml += `<td>Data ${j + 1}-${i + 1}</td>`;
+              }
+              tableHtml += "</tr>";
+            }
+            tableHtml += "</tbody></table>";
+
+            // Insert the generated table into the active content area
+            $(".ge-content.active").append(tableHtml);
+          })
+          .appendTo(wrapper); // Append button to Grid Editor toolbar
+
+        // =================================TABLE===============================
         var htmlButton = $(
           '<button title="Edit Source Code" type="button" class="btn btn-sm btn-primary gm-edit-mode"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-right"></i></span></button>'
         )
@@ -186,7 +244,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
             } else {
               deinit();
               htmlTextArea
-                .height(0.8 * $(window).height())
+                .height(0.2 * $(window).height())
                 .val(canvas.html())
                 .show();
               canvas.hide();
@@ -708,6 +766,8 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
   $.fn.gridEditor.RTEs = {};
 })(jQuery);
+
+// ==============================================================================
 (function ($) {
   $.fn.gridEditor.RTEs.ckeditor = {
     init: function (settings, contentAreas) {
